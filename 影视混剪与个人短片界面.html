@@ -6,16 +6,96 @@
 body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0c0a20,#1a163a,#251f4a);color:#e0e0ff;min-height:100vh;padding:60px 20px}
 .container{max-width:1100px;margin:0 auto}
 .title{font-size:32px;margin-bottom:40px;text-align:center;background:linear-gradient(90deg,#8860ff,#40e0ff);-webkit-background-clip:text;color:transparent}
-.item{margin-bottom:35px}
-.label{font-size:18px;margin-bottom:10px;color:#fff}
-video{width:100%;border-radius:16px;box-shadow:0 0 30px rgba(136,96,255,.2)}
-.back{position:fixed;bottom:30px;right:30px;padding:12px 24px;background:linear-gradient(90deg,#8860ff,#40e0ff);color:#fff;border-radius:50px;text-decoration:none}
+
+/* 统一两行两列网格布局 */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:30px;
+  margin-bottom: 50px;
+}
+
+/* 分类大标题 */
+.section-title{
+  font-size:20px;
+  color:#fff;
+  margin-bottom:20px;
+  font-weight:bold;
+}
+
+.item{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.label{font-size:16px;color:#e0e0ff}
+.desc{font-size:14px;color:#b8b0d4;line-height:1.5}
+
+video{
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 0 30px rgba(136,96,255,.2)
+}
+
+.back{
+  position:fixed;bottom:30px;right:30px;
+  padding:12px 24px;
+  background:linear-gradient(90deg,#8860ff,#40e0ff);
+  color:#fff;
+  border-radius:50px;
+  text-decoration:none
+}
 </style>
+
 <div class="container">
 <h1 class="title">影视混剪与个人短片</h1>
-<div class="item">
-<div class="label">电影混剪</div>
-<video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+
+<!-- 电影混剪（2个视频） -->
+<div class="section-title">电影混剪</div>
+<div class="grid">
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">电影混剪 01</div>
+    <div class="desc">高燃卡点混剪，史诗级画质，震撼视听体验</div>
+  </div>
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">电影混剪 02</div>
+    <div class="desc">经典催泪片段合集，情感细腻，氛围感拉满</div>
+  </div>
 </div>
+
+<!-- 电视剧混剪（2个视频） -->
+<div class="section-title">电视剧混剪</div>
+<div class="grid">
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">电视剧混剪 01</div>
+    <div class="desc">热门剧集高光时刻，剧情紧凑，剪辑流畅</div>
+  </div>
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">电视剧混剪 02</div>
+    <div class="desc">经典角色群像混剪，人物刻画细腻，感染力强</div>
+  </div>
 </div>
+
+<!-- Vlog（2个视频） -->
+<div class="section-title">Vlog</div>
+<div class="grid">
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">Vlog 01</div>
+    <div class="desc">日常记录短片，真实自然，记录生活美好瞬间</div>
+  </div>
+  <div class="item">
+    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
+    <div class="label">Vlog 02</div>
+    <div class="desc">创意生活vlog，风格清新，展现个人风采</div>
+  </div>
+</div>
+
+</div>
+
 <a href="主界面.html" class="back">← 返回主页</a>
