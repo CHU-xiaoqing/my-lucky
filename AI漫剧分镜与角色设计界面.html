@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>AI漫剧分镜与角色设计</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0c0a20,#1a163a,#251f4a);color:#e0e0ff;min-height:100vh;padding:60px 20px}
+.container{max-width:1100px;margin:0 auto}
+.title{font-size:32px;margin-bottom:30px;text-align:center;background:linear-gradient(90deg,#8860ff,#40e0ff);-webkit-background-clip:text;color:transparent}
+.tabs{display:flex;justify-content:center;gap:15px;margin-bottom:40px}
+.tab{padding:10px 25px;border-radius:50px;background:rgba(255,255,255,.08);border:1px solid rgba(136,96,255,.4);color:#fff;cursor:pointer}
+.tab.active{background:linear-gradient(90deg,#8860ff,#40e0ff)}
+.content{display:none}.content.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:30px}
+.item img,.item video{width:100%;border-radius:16px;box-shadow:0 0 30px rgba(136,96,255,.2)}
+.back{position:fixed;bottom:30px;right:30px;padding:12px 24px;background:linear-gradient(90deg,#8860ff,#40e0ff);color:#fff;border-radius:50px;text-decoration:none}
+</style>
+<div class="container">
+<h1 class="title">AI漫剧分镜与角色设计</h1>
+<div class="tabs">
+<div class="tab active" data-target="video">AI商业宣传片</div>
+<div class="tab" data-target="pic">AI漫剧</div>
+</div>
+<div id="video" class="content active grid">
+<div class="item"><video src="https://www.w3school.com.cn/i/movie.mp4" controls></video></div>
+</div>
+<div id="pic" class="content grid">
+<div class="item"><img src="https://picsum.photos/800/500?random=21"></div>
+</div>
+</div>
+
+<!-- 这里修复：返回主页链接 + 匹配主页面跳转规则 -->
+<a href="主界面.html" class="back">← 返回主页</a>
+
+<script>
+const t=document.querySelectorAll('.tab');
+const c=document.querySelectorAll('.content');
+t.forEach(a=>{a.addEventListener('click',()=>{t.forEach(b=>b.classList.remove('active'));c.forEach(d=>d.classList.remove('active'));a.classList.add('active');document.getElementById(a.dataset.target).classList.add('active')})})
+</script>
