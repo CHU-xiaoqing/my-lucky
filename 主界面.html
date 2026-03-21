@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIGC商业视觉设计师 | 楚晓晴作品集</title>
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg,#0c0a20 0%,#1a163a 50%,#251f4a 100%);
+      color:#e0e0ff;
+      min-height:100vh;
+      overflow-x:hidden;
+      background-attachment:fixed;
+    }
+
+    .bg-light {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:radial-gradient(circle at 20% 30%,rgba(136,96,255,0.15) 0%,transparent 100%),radial-gradient(circle at 80% 70%,rgba(64,224,255,0.15) 0%,transparent 100%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .container {
+      max-width:1400px;
+      margin:0 auto;
+      padding:2rem 1rem;
+    }
+
+    header {
+      text-align:center;
+      margin-bottom:3rem;
+      padding:2rem 0;
+      border-bottom:1px solid rgba(136,96,255,0.3);
+      position:relative;
+    }
+
+    header h1 {
+      font-size:2.8rem;
+      background:linear-gradient(90deg,#8860ff,#40e0ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      margin-bottom:0.8rem;
+      letter-spacing:2px;
+    }
+
+    header p {
+      font-size:1.1rem;
+      color:#b4b0e0;
+      max-width:700px;
+      margin:0 auto;
+    }
+
+    .category-tabs {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:1rem;
+      margin-bottom:3rem;
+    }
+
+    .tab-btn {
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(136,96,255,0.4);
+      backdrop-filter:blur(10px);
+      color:#d0cfff;
+      padding:0.9rem 2rem;
+      border-radius:50px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      min-width:120px;
+    }
+
+    .tab-btn:hover {
+      border-color:#8860ff;
+      color:#fff;
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(136,96,255,0.25);
+    }
+
+    .tab-btn.active {
+      background:linear-gradient(90deg,#8860ff,#40e0ff);
+      color:#fff;
+      border-color:transparent;
+      box-shadow:0 6px 20px rgba(136,96,255,0.4);
+    }
+
+    .portfolio-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:2.2rem;
+      opacity:0;
+      transform:translateY(20px);
+      animation:fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .portfolio-card {
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(136,96,255,0.2);
+      backdrop-filter:blur(12px);
+      border-radius:18px;
+      overflow:hidden;
+      transition:all 0.4s ease;
+      cursor:pointer;
+      position:relative;
+    }
+
+    .portfolio-card::before {
+      content:'';
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg,transparent,rgba(136,96,255,0.1),transparent);
+      transition:left 0.6s ease;
+    }
+
+    .portfolio-card:hover::before {
+      left:100%;
+    }
+
+    .portfolio-card:hover {
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 15px 35px rgba(136,96,255,0.25);
+      border-color:rgba(64,224,255,0.5);
+    }
+
+    .card-img {
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-bottom:1px solid rgba(136,96,255,0.2);
+    }
+
+    .card-content {
+      padding:1.5rem;
+    }
+
+    .card-title {
+      font-size:1.3rem;
+      color:#fff;
+      margin-bottom:0.6rem;
+    }
+
+    .card-desc {
+      color:#b4b0e0;
+      font-size:0.95rem;
+      line-height:1.6;
+      margin-bottom:1rem;
+      height:55px;
+      overflow:hidden;
+    }
+
+    .card-tags {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.5rem;
+      margin-bottom:1rem;
+    }
+
+    .tag {
+      background:rgba(64,224,255,0.15);
+      color:#40e0ff;
+      padding:0.3rem 0.8rem;
+      border-radius:50px;
+      font-size:0.8rem;
+    }
+
+    .card-link {
+      display:inline-block;
+      color:#8860ff;
+      font-weight:bold;
+      text-decoration:none;
+      transition:color 0.3s;
+    }
+
+    .card-link:hover {
+      color:#40e0ff;
+    }
+
+    @media (max-width:768px){
+      header h1{font-size:2rem;}
+      .portfolio-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-light"></div>
+<div class="container">
+  <header>
+    <h1>AIGC商业视觉设计师</h1>
+    <p>专注AI商品图生成 / AI商业宣传片 / 商业海报 / 宣传片视觉创作，综合创意设计全案服务</p>
+  </header>
+
+  <div class="category-tabs">
+    <button class="tab-btn active" data-category="all">全部作品</button>
+    <button class="tab-btn" data-category="ai">AI视觉创意</button>
+    <button class="tab-btn" data-category="video">视频剪辑创作</button>
+    <button class="tab-btn" data-category="ps">PS平面设计</button>
+    <button class="tab-btn" data-category="model">3D产品建模</button>
+  </div>
+
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <div class="portfolio-card" data-category="ai">
+      <img src="https://s41.ax1x.com/2026/03/21/pen4hVg.jpg" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">AI电商商品视觉生成</h3>
+        <p class="card-desc">基于AIGC批量生成高质量商品展示图，适配电商平台主图、详情页、广告投放场景。</p>
+        <div class="card-tags">
+          <span class="tag">AI生成</span>
+          <span class="tag">商品图</span>
+          <span class="tag">商业视觉</span>
+        </div>
+        <a href="AI电商商品视觉生成界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ai">
+      <img src="https://picsum.photos/600/400?random=2" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">AI商业宣传片</h3>
+        <p class="card-desc">AI辅助完成漫剧角色、场景、分镜创作，风格统一，高效输出连续视觉内容。</p>
+        <div class="card-tags">
+          <span class="tag">AI商业宣传片</span>
+          <span class="tag">角色设计</span>
+          <span class="tag">分镜</span>
+        </div>
+        <a href="AI商业宣传片界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ai">
+      <img src="https://picsum.photos/600/400?random=3" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">AI漫剧</h3>
+        <p class="card-desc">结合品牌调性使用AI生成海报初稿，快速迭代多版风格，提升商业设计效率。</p>
+        <div class="card-tags">
+          <span class="tag">AI海报</span>
+          <span class="tag">品牌视觉</span>
+          <span class="tag">商业推广</span>
+        </div>
+        <a href="AI漫剧界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="video">
+      <img src="https://picsum.photos/600/400?random=7" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">多风格商业宣传视频</h3>
+        <p class="card-desc">宣传片剪辑、节奏把控、字幕与特效包装，适用于品牌推广、产品介绍等场景。</p>
+        <div class="card-tags">
+          <span class="tag">宣传片</span>
+          <span class="tag">视频剪辑</span>
+          <span class="tag">包装</span>
+        </div>
+        <a href="多风格商业宣传视频界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="video">
+      <img src="https://picsum.photos/600/400?random=8" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">影视混剪与个人短片</h3>
+        <p class="card-desc">影视混剪、剧情短片剪辑，镜头语言与转场设计，突出叙事节奏与视觉表现力。</p>
+        <div class="card-tags">
+          <span class="tag">混剪</span>
+          <span class="tag">短片</span>
+          <span class="tag">剪辑</span>
+        </div>
+        <a href="影视混剪与个人短片界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ps">
+      <img src="https://picsum.photos/600/400?random=4" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">动漫风格商业海报</h3>
+        <p class="card-desc">使用PS精修排版，二次元/动漫风格海报设计，适用于活动宣传与IP视觉推广。</p>
+        <div class="card-tags">
+          <span class="tag">PS精修</span>
+          <span class="tag">动漫海报</span>
+          <span class="tag">版式设计</span>
+        </div>
+        <a href="动漫风格商业海报界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ps">
+      <img src="https://picsum.photos/600/400?random=5" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">产品宣传海报设计</h3>
+        <p class="card-desc">商业产品宣传海报，侧重构图、光影与信息层级，强化品牌记忆点与转化效果。</p>
+        <div class="card-tags">
+          <span class="tag">海报设计</span>
+          <span class="tag">商业宣传</span>
+          <span class="tag">版式</span>
+        </div>
+        <a href="产品宣传海报设计界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="model">
+      <img src="https://picsum.photos/600/400?random=6" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">SolidWorks产品结构建模</h3>
+        <p class="card-desc">使用SolidWorks完成产品外观与结构建模，支持展示渲染、尺寸标注与模型输出。</p>
+        <div class="card-tags">
+          <span class="tag">3D建模</span>
+          <span class="tag">产品设计</span>
+          <span class="tag">结构建模</span>
+        </div>
+        <a href="SolidWorks产品结构建模界面.html" class="card-link" target="_blank">查看详情</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.portfolio-card');
+  const grid = document.getElementById('portfolioGrid');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.category;
+      grid.style.opacity = 0;
+      setTimeout(() => {
+        cards.forEach(c => {
+          if (cat === 'all' || c.dataset.category === cat) c.style.display = 'block';
+          else c.style.display = 'none';
+        });
+        grid.style.opacity = 1;
+      }, 300);
+    });
+  });
+</script>
+</body>
+</html>
