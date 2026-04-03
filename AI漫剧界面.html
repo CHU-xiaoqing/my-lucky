@@ -19,10 +19,67 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
   gap: 12px;
 }
 
+/* 视频容器：统一大小 + 自定义封面 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:0 0 30px rgba(136,96,255,.2);
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+}
+
+/* 自定义封面图 */
+.video-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* 播放按钮 */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(136,96,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.play-btn::after {
+  content: "";
+  border-left: 24px solid #fff;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+}
+
+/* B站视频iframe */
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 1;
+}
+
 .item video{
   width:100%;
   border-radius:16px;
   box-shadow:0 0 30px rgba(136,96,255,.2);
+  aspect-ratio: 16/9;
 }
 
 .item-title {
@@ -44,9 +101,14 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 <h1 class="title">AI漫剧</h1>
 <div class="grid">
   <div class="item">
-    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
-    <div class="item-title">AI奇幻漫剧</div>
-    <div class="item-desc">AI生成高质量漫剧短片，画面精美，剧情紧凑。</div>
+    <div class="video-wrapper" onclick="playVideo(this)">
+      <!-- 你可以把 src 换成你自己的封面图片地址 -->
+      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
+      <div class="play-btn"></div>
+      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=116323468187677&bvid=BV1yiXrBWE8Y&cid=37124507807&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+    </div>
+    <div class="item-title">AI情绪漫剧</div>
+    <div class="item-desc">AI叙事短片·个人创作·2026  脚本，画面生成，剪辑，配乐全流程独立完成。</div>
   </div>
   <div class="item">
     <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
@@ -67,3 +129,18 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 </div>
 
 <a href="index.html" class="back">← 返回主页</a>
+
+<script>
+// 点击封面 → 隐藏封面 + 播放视频
+function playVideo(el) {
+  let cover = el.querySelector('.video-cover');
+  let btn = el.querySelector('.play-btn');
+  let iframe = el.querySelector('.video-iframe');
+
+  cover.style.display = 'none';
+  btn.style.display = 'none';
+
+  // 自动播放 + 显示B站完整控制栏（进度条、音量、全屏）
+  iframe.src += "&autoplay=1";
+}
+</script>
