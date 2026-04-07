@@ -7,6 +7,14 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 .container{max-width:1100px;margin:0 auto}
 .title{font-size:32px;margin-bottom:40px;text-align:center;background:linear-gradient(90deg,#8860ff,#40e0ff);-webkit-background-clip:text;color:transparent}
 
+/* 新增：软件说明文字样式 */
+.desc{
+  text-align:center;       /* 居中 */
+  font-size:16px;          /* 字体大小 */
+  margin-bottom:30px;      /* 和下方网格保持间距 */
+  opacity:0.9;             /* 轻微透明更美观 */
+}
+
 .grid{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
@@ -42,28 +50,29 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 </style>
 
 <div class="container">
-<h1 class="title">AI电商商品视觉生成</h1>
+  <h1 class="title">AI电商商品视觉生成</h1>
+  <!-- 给这行文字加上 class="desc" -->
+  <p class="desc">生图所用软件：midjourney/comfyui/Photoshop/即梦</p>
 
 <div class="grid">
   <div class="item">
-    <img src="https://picsum.photos/800/500?random=71">
-    <div class="label">电商商品视觉 01</div>
+    <img src="https://s41.ax1x.com/2026/04/07/peNxhNt.jpg">
+    <div class="label">电商商品视觉 护肤品</div>
   </div>
   <div class="item">
-    <img src="https://picsum.photos/800/500?random=72">
-    <div class="label">电商商品视觉 02</div>
+    <img src="https://s41.ax1x.com/2026/04/07/peNxXEn.jpg">
+    <div class="label">电商商品视觉 粉底液</div>
   </div>
   <div class="item">
-    <img src="https://picsum.photos/800/500?random=73">
-    <div class="label">电商商品视觉 03</div>
+    <img src="https://s41.ax1x.com/2026/04/07/peNz9vF.jpg">
+    <div class="label">电商商品视觉 手表</div>
   </div>
   <div class="item">
-    <img src="https://picsum.photos/800/500?random=74">
-    <div class="label">电商商品视觉 04</div>
+    <img src="https://s41.ax1x.com/2026/04/07/peNzFb9.jpg">
+    <div class="label">电商商品视觉 衣物</div>
   </div>
 </div>
 
 </div>
 
 <a href="index.html" class="back">← 返回主页</a>
-```
