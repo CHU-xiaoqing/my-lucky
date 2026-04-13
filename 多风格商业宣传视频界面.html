@@ -1,85 +1,297 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>多风格商业宣传视频</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0c0a20,#1a163a,#251f4a);color:#e0e0ff;min-height:100vh;padding:30px 20px}
-.container{max-width:1000px;margin:0 auto}
-.title{font-size:28px;margin-bottom:25px;text-align:center;background:linear-gradient(90deg,#8860ff,#40e0ff);-webkit-background-clip:text;color:transparent}
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多风格商业宣传视频</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:20px;
-}
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #0c0a20, #1a163a, #251f4a);
+      color: #e0e0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
 
-.item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  text-align: center;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-.item-title {
-  font-size: 17px;
-  font-weight: bold;
-  color: #ffffff;
-  line-height: 1.4;
-}
-.item-desc {
-  font-size: 14px;
-  color: #b8b0d4;
-  line-height: 1.5;
-  max-width: 90%;
-}
+    .title {
+      font-size: 28px;
+      margin-bottom: 15px;
+      text-align: center;
+      background: linear-gradient(90deg, #8860ff, #40e0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-video{
-  width: 90%;
-  max-width: 380px;
-  border-radius:16px;
-  box-shadow:0 0 30px rgba(136,96,255,.2);
-  object-fit: cover;
-}
+    .desc {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      line-height: 1.6;
+      color: #b8b0d4;
+    }
 
-.back{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  padding:10px 20px;
-  background:linear-gradient(90deg,#8860ff,#40e0ff);
-  color:#fff;
-  border-radius:50px;
-  text-decoration:none
-}
-</style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-bottom: 10px;
+    }
 
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* 视频容器 + 自定义封面 */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(136, 96, 255, 0.2);
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+    }
+
+    .video-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
+
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(136, 96, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .play-btn::after {
+      content: "";
+      border-left: 20px solid #fff;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+    }
+
+    .video-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 1;
+    }
+
+    .item-title {
+      font-size: 17px;
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: #b8b0d4;
+      line-height: 1.5;
+      max-width: 90%;
+    }
+
+    .back {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #8860ff, #40e0ff);
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      z-index: 100;
+    }
+
+    .back:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
 <div class="container">
-<h1 class="title">多风格商业宣传视频</h1>
+  <h1 class="title">✨ 多风格商业宣传视频</h1>
+  <p class="desc">本页视频均为代剪，是小号重传所以id变了</p>
 
-<div class="grid">
-  <div class="item">
-    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
-    <div class="item-title">产品宣传视频</div>
-    <div class="item-desc">高清产品展示视频，突出功能亮点与使用场景，提升转化率。</div>
-  </div>
-  <div class="item">
-    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
-    <div class="item-title">企业形象宣传片</div>
-    <div class="item-desc">展现企业文化与实力，适用于官网、展会、招商等正式场景。</div>
-  </div>
-  <div class="item">
-    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
-    <div class="item-title">科技风短视频</div>
-    <div class="item-desc">未来感动态特效，适合数字化、AI类产品快速宣传。</div>
-  </div>
-  <div class="item">
-    <video src="https://www.w3school.com.cn/i/movie.mp4" controls></video>
-    <div class="item-title">品牌营销短片</div>
-    <div class="item-desc">节奏紧凑、视觉冲击力强，适用于社交媒体投放。</div>
-  </div>
-</div>
+  <div class="grid">
+    <!-- 1. 医学宣传视频 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116397489263632&bvid=BV1ZoQtBBE93&cid=37477025457&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">医学宣传视频</div>
+      <div class="item-desc">剪映·高燃混剪，引发共鸣</div>
+    </div>
 
+    <!-- 2. 恋与深空·乙游宣传视频 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116259312244044&bvid=BV1gWAjzXE4i&cid=36829266958&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">恋与深空·乙游宣传视频</div>
+      <div class="item-desc">剪映·祁煜个人向台词混剪</div>
+    </div>
+
+    <!-- 3. 营销号代剪·热点更新 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116396331768429&bvid=BV1p4Q4B3EPh&cid=37469618884&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">营销号代剪·热点更新</div>
+      <div class="item-desc">参与运营学校官方账号，此处仅展示部分视频，用于社交媒体投放。</div>
+    </div>
+
+    <!-- 4. 营销号代剪·广告推广 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116396331834004&bvid=BV1k4Q4B3Eh6&cid=37469619584&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">营销号代剪·广告推广</div>
+      <div class="item-desc">参与运营学校官方账号，此处仅展示部分视频，用于社交媒体投放。</div>
+    </div>
+
+    <!-- 5. 信息流广告剪辑（可口可乐） -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116397707369102&bvid=BV1ghQtB4ERt&cid=37478402660&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">信息流广告剪辑</div>
+      <div class="item-desc">可口可乐信息流</div>
+    </div>
+
+    <!-- 6. 信息流广告剪辑（商铺推广） -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116396331701601&bvid=BV1w4Q4B3EU9&cid=37469555614&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">信息流广告剪辑</div>
+      <div class="item-desc">商铺推广</div>
+    </div>
+
+    <!-- 7. 领导研学学习视频 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116397724276906&bvid=BV1QbQtBZE4B&cid=37478467635&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">领导研学学习视频</div>
+      <div class="item-desc">外出学习记录 混剪视频</div>
+    </div>
+
+    <!-- 8. 大学项目宣传视频 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116396348414160&bvid=BV1ksQ4BrEqa&cid=37469621053&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="item-title">大学项目宣传视频</div>
+      <div class="item-desc">大学竞赛路演宣传视频</div>
+    </div>
+  </div>
 </div>
 
 <a href="index.html" class="back">← 返回主页</a>
+
+<script>
+  function playVideo(el) {
+    const cover = el.querySelector('.video-cover');
+    const btn = el.querySelector('.play-btn');
+    const iframe = el.querySelector('.video-iframe');
+
+    // 隐藏封面（如果存在）和播放按钮
+    if (cover) cover.style.display = 'none';
+    if (btn) btn.style.display = 'none';
+
+    // 智能添加 autoplay 参数
+    let src = iframe.src;
+    if (src.indexOf('autoplay=1') === -1) {
+      iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+    }
+  }
+</script>
+</body>
+</html>

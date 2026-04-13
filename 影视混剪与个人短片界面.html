@@ -1,198 +1,367 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>影视混剪与个人短片</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0c0a20,#1a163a,#251f4a);color:#e0e0ff;min-height:100vh;padding:30px 20px}
-.container{max-width:1000px;margin:0 auto}
-.title{font-size:28px;margin-bottom:25px;text-align:center;background:linear-gradient(90deg,#8860ff,#40e0ff);-webkit-background-clip:text;color:transparent}
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>影视混剪与个人短片</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:20px;
-  margin-bottom: 30px;
-}
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #0c0a20, #1a163a, #251f4a);
+      color: #e0e0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
 
-.section-title{
-  font-size:20px;
-  color:#fff;
-  margin-bottom:15px;
-  font-weight:bold;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-.item{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items: center;
-  text-align: center;
-}
+    .title {
+      font-size: 28px;
+      margin-bottom: 15px;
+      text-align: center;
+      background: linear-gradient(90deg, #8860ff, #40e0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-.label{
-  font-size:17px;
-  font-weight:bold;
-  color:#ffffff;
-  line-height:1.4;
-}
-.desc{
-  font-size:14px;
-  color:#b8b0d4;
-  line-height:1.5;
-  max-width: 90%;
-}
+    .desc {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      line-height: 1.6;
+      color: #b8b0d4;
+    }
 
-.video-wrapper {
-  position: relative;
-  width: 95%;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow:0 0 30px rgba(136,96,255,.2);
-  aspect-ratio: 16 / 9;
-  cursor: pointer;
-}
+    .section-title {
+      font-size: 22px;
+      color: #fff;
+      margin: 30px 0 20px 0;
+      font-weight: bold;
+      border-left: 4px solid #8860ff;
+      padding-left: 15px;
+    }
 
-.video-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-bottom: 10px;
+    }
 
-.play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: rgba(136,96,255,0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-  transition: all 0.3s;
-}
-.play-btn:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: rgba(100, 60, 255, 1);
-}
-.play-btn::after {
-  content: "";
-  border-left: 20px solid #fff;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  margin-left: 4px;
-}
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+    }
 
-.video-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  z-index: 1;
-}
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(136, 96, 255, 0.2);
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+    }
 
-.back{
-  position:fixed;bottom:25px;right:25px;
-  padding:10px 20px;
-  background:linear-gradient(90deg,#8860ff,#40e0ff);
-  color:#fff;
-  border-radius:50px;
-  text-decoration:none
-}
-</style>
+    /* 封面已注释，无需显示相关样式，但保留以备后续使用 */
+    .video-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
 
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(136, 96, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .play-btn::after {
+      content: "";
+      border-left: 20px solid #fff;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+    }
+
+    .video-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 1;
+    }
+
+    .label {
+      font-size: 17px;
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: #b8b0d4;
+      line-height: 1.5;
+      max-width: 90%;
+    }
+
+    .back {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #8860ff, #40e0ff);
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      z-index: 100;
+    }
+
+    .back:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
 <div class="container">
-<h1 class="title">影视混剪与个人短片</h1>
+  <h1 class="title">✨ 影视混剪与个人短片</h1>
+  <p class="desc">本页是之前剪辑的一些视频，因为喜欢，所以一直有在剪辑</p>
 
-<!-- 电影混剪（2个视频） -->
-<div class="section-title">电影混剪</div>
-<div class="grid">
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+  <!-- 电影混剪 -->
+  <div class="section-title">🎬 电影混剪</div>
+  <div class="grid">
+    <!-- 头脑特工队 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">头脑特工队</div>
+      <div class="item-desc">剪映·AE，名场面卡点混剪，关于个人成长</div>
     </div>
-    <div class="label">电影混剪 01</div>
-    <div class="desc">高燃卡点混剪，史诗级画质，震撼视听体验</div>
-  </div>
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+    <!-- 心灵奇旅 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114971425902666&bvid=BV1JFt5zoE9N&cid=31488411160&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">心灵奇旅</div>
+      <div class="item-desc">剪映·AE，名场面卡点混剪，关于死亡和火花</div>
     </div>
-    <div class="label">电影混剪 02</div>
-    <div class="desc">经典催泪片段合集，情感细腻，氛围感拉满</div>
+    <!-- 狐妖小红娘 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114386723149156&bvid=BV1GfL4zQE88&cid=29568666252&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">动漫·狐妖小红娘</div>
+      <div class="item-desc">剪映·AE，名场面卡点混剪，关于勇气</div>
+    </div>
+    <!-- 新增动漫混剪（修复自动播放问题：添加 autoplay=0） -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116397707434702&bvid=BV1hhQtB4Ep7&cid=37478404080&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">动漫</div>
+      <div class="item-desc">剪映·AE，名场面卡点混剪</div>
+    </div>
   </div>
-</div>
 
-<!-- 电视剧混剪（2个视频） -->
-<div class="section-title">电视剧混剪</div>
-<div class="grid">
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+  <!-- 电视剧混剪 -->
+  <div class="section-title">📺 电视剧混剪</div>
+  <div class="grid">
+    <!-- 强女混剪 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=116397489328582&bvid=BV1EoQtBzEk3&cid=37477091912&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">强女混剪</div>
+      <div class="item-desc">剪映，古今优秀女性混剪</div>
     </div>
-    <div class="label">电视剧混剪 01</div>
-    <div class="desc">热门剧集高光时刻，剧情紧凑，剪辑流畅</div>
-  </div>
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+    <!-- 齐天大圣 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=115381847005166&bvid=BV1XoWYzdEWX&cid=33113441077&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">齐天大圣孙悟空混剪</div>
+      <div class="item-desc">经典名场面混剪，感染力强</div>
     </div>
-    <div class="label">电视剧混剪 02</div>
-    <div class="desc">经典角色群像混剪，人物刻画细腻，感染力强</div>
+    <!-- 度华年 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114160968931990&bvid=BV1kMQ6YnEMf&cid=28864021508&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">电视剧《度华年》</div>
+      <div class="item-desc">名场面混剪，古装重生，关于喜欢</div>
+    </div>
+    <!-- 临江仙 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114715590137594&bvid=BV1b8KNzfEyt&cid=30602825510&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">电视剧《临江仙》</div>
+      <div class="item-desc">名场面混剪，古装虐恋</div>
+    </div>
+    <!-- 姜颂 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114517484901424&bvid=BV1zQE4zMELV&cid=29991700006&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">短剧《姜颂》</div>
+      <div class="item-desc">名场面混剪，个人成长</div>
+    </div>
+    <!-- 某某 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114658883278025&bvid=BV1Q9M3zsEDj&cid=30423647870&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">广播剧《某某》</div>
+      <div class="item-desc">台词混剪，关于青春</div>
+    </div>
   </div>
-</div>
 
-<!-- Vlog（2个视频） -->
-<div class="section-title">Vlog</div>
-<div class="grid">
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+  <!-- Vlog -->
+  <div class="section-title">🎥 Vlog</div>
+  <div class="grid">
+    <!-- 旅行vlog -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=114126542085063&bvid=BV1e7RpYwE1Y&cid=28761524076&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">旅行vlog</div>
+      <div class="item-desc">日常记录短片，真实自然，记录生活美好瞬间</div>
     </div>
-    <div class="label">Vlog 01</div>
-    <div class="desc">日常记录短片，真实自然，记录生活美好瞬间</div>
-  </div>
-  <div class="item">
-    <div class="video-wrapper" onclick="playVideo(this)">
-      <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg">
-      <div class="play-btn"></div>
-      <iframe class="video-iframe" src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+    <!-- 风景混剪 -->
+    <div class="item">
+      <div class="video-wrapper" onclick="playVideo(this)">
+        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
+        <div class="play-btn"></div>
+        <iframe class="video-iframe"
+                src="//player.bilibili.com/player.html?isOutside=true&aid=115441288683283&bvid=BV1RdsrzpE3K&cid=33420938398&p=1&autoplay=0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+      </div>
+      <div class="label">风景混剪</div>
+      <div class="item-desc">剪映·苏轼台词向</div>
     </div>
-    <div class="label">Vlog 02</div>
-    <div class="desc">创意生活vlog，风格清新，展现个人风采</div>
   </div>
-</div>
-
 </div>
 
 <a href="index.html" class="back">← 返回主页</a>
 
 <script>
-function playVideo(el) {
-  let cover = el.querySelector('.video-cover');
-  let btn = el.querySelector('.play-btn');
-  let iframe = el.querySelector('.video-iframe');
+  function playVideo(el) {
+    const cover = el.querySelector('.video-cover');
+    const btn = el.querySelector('.play-btn');
+    const iframe = el.querySelector('.video-iframe');
 
-  cover.style.display = 'none';
-  btn.style.display = 'none';
-  iframe.src += "&autoplay=1";
-}
+    // 隐藏封面（如果存在）和播放按钮
+    if (cover) cover.style.display = 'none';
+    if (btn) btn.style.display = 'none';
+
+    // 智能添加 autoplay 参数
+    let src = iframe.src;
+    if (src.indexOf('autoplay=1') === -1) {
+      iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+    }
+  }
 </script>
+</body>
+</html>
