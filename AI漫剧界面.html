@@ -43,7 +43,6 @@
       color: #b8b0d4;
     }
 
-    /* 默认两列网格（电脑端） */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -57,7 +56,6 @@
       gap: 12px;
     }
 
-    /* 视频容器 + 自定义封面 */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -78,31 +76,7 @@
       z-index: 2;
     }
 
-    /* 播放按钮 — 点击后会彻底移除，不会遮挡视频 */
-    .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70px;
-      height: 70px;
-      background: rgba(136, 96, 255, 0.9);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-
-    .play-btn::after {
-      content: "";
-      border-left: 24px solid #fff;
-      border-top: 14px solid transparent;
-      border-bottom: 14px solid transparent;
-      margin-left: 6px;
-    }
+    /* 紫色播放按钮样式已全部移除 */
 
     .video-iframe {
       position: absolute;
@@ -146,7 +120,7 @@
       transform: scale(1.05);
     }
 
-    /* ----- 手机端适配：强制单列，调整字体/间距，保留原CSS风格 ----- */
+    /* 手机端适配 */
     @media screen and (max-width: 768px) {
       body {
         padding: 30px 16px;
@@ -178,18 +152,6 @@
         box-shadow: 0 0 20px rgba(136, 96, 255, 0.2);
       }
 
-      .play-btn {
-        width: 56px;
-        height: 56px;
-      }
-
-      .play-btn::after {
-        border-left-width: 20px;
-        border-top-width: 12px;
-        border-bottom-width: 12px;
-        margin-left: 4px;
-      }
-
       .item-title {
         font-size: 16px;
       }
@@ -217,18 +179,6 @@
         gap: 22px;
       }
 
-      .play-btn {
-        width: 50px;
-        height: 50px;
-      }
-
-      .play-btn::after {
-        border-left-width: 16px;
-        border-top-width: 10px;
-        border-bottom-width: 10px;
-        margin-left: 3px;
-      }
-
       .item-title {
         font-size: 15px;
       }
@@ -250,7 +200,7 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面1">
-        <div class="play-btn"></div>
+        <!-- 播放按钮已移除 -->
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=116323468187677&bvid=BV1yiXrBWE8Y&cid=37124507807&p=1&autoplay=0&high_quality=1"
                 scrolling="no"
@@ -261,11 +211,10 @@
       <div class="item-desc">midjourney，即梦，清影，AI叙事短片·个人创作·2026 脚本，画面生成，剪辑，配乐全流程独立完成。</div>
     </div>
 
-    <!-- 第2个视频 (封面已启用，保证视觉统一) -->
+    <!-- 第2个视频 -->
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面2">
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115270932762841&bvid=BV1q2nGzwENS&cid=32654164413&p=1&autoplay=0"
                 scrolling="no"
@@ -280,7 +229,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面3">
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=116323468187677&bvid=BV1yiXrBWE8Y&cid=37124507807&p=1&autoplay=0&high_quality=1"
                 scrolling="no"
@@ -297,46 +245,33 @@
 
 <script>
   function playVideo(el) {
-    // 防止重复点击导致视频重新加载 (已经播放过的就不再处理)
+    // 防止重复点击导致视频重新加载
     if (el.dataset.played === 'true') return;
 
     const cover = el.querySelector('.video-cover');
-    const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
-    // 彻底移除封面（如果存在）
+    // 移除封面图
     if (cover) cover.remove();
-    // 彻底移除紫色播放按钮，保证消失且不遮挡
-    if (btn) btn.remove();
 
-    // 标记为已播放，避免二次点击重复执行
+    // 标记为已播放
     el.dataset.played = 'true';
 
-    // 处理iframe的src —— 确保自动播放 + 静音（符合浏览器自动播放策略，同时点击一次直接播放）
+    // 处理iframe自动播放 + 静音
     let src = iframe.src;
-
-    // 移除已有的autoplay参数 (替换为autoplay=1)
     src = src.replace(/([?&])autoplay=\d+/g, '$1autoplay=1');
-
-    // 移除已有的muted参数 (替换为muted=1，保证静音自动播放)
     src = src.replace(/([?&])muted=\d+/g, '$1muted=1');
 
-    // 如果src中没有autoplay参数，则添加
     if (src.indexOf('autoplay=') === -1) {
       src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
     }
-
-    // 如果src中没有muted参数，则添加 (静音自动播放，确保一次点击即可播放)
     if (src.indexOf('muted=') === -1) {
       src += (src.includes('?') ? '&' : '?') + 'muted=1';
     }
-
-    // 保证高质量参数存在（如果原来有high_quality则保留，无则添加）
     if (src.indexOf('high_quality=') === -1) {
       src += '&high_quality=1';
     }
 
-    // 更新iframe地址，触发播放
     iframe.src = src;
   }
 </script>
