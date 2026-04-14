@@ -228,7 +228,7 @@
 <body>
 <div class="container">
   <h1 class="title">✨ 多风格商业宣传视频</h1>
-  <p class="desc">本页视频均为代剪，是小号重传所以id变了</p>
+  <p class="desc">本页是之前代剪的视频，是小号重传所以id变了</p>
 
   <div class="grid">
     <!-- 1. 医学宣传视频 -->
@@ -361,13 +361,13 @@
     const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
-    // 隐藏封面（如果存在）和播放按钮
-    if (cover) cover.style.display = 'none';
-    if (btn) btn.style.display = 'none';
+    // 彻底移除封面（如果有）
+    if (cover) cover.remove();
+    // 彻底移除播放按钮，杜绝任何遮挡
+    if (btn) btn.remove();
 
-    // 智能添加 autoplay 参数
+    // 添加 autoplay 参数
     let src = iframe.src;
-    // 避免重复添加参数
     if (src.indexOf('autoplay=1') === -1) {
       iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
     }

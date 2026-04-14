@@ -441,11 +441,11 @@
     const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
-    // 隐藏封面（如果存在）和播放按钮
-    if (cover) cover.style.display = 'none';
-    if (btn) btn.style.display = 'none';
+    // 彻底移除封面（如果存在）和播放按钮，避免遮挡
+    if (cover) cover.remove();
+    if (btn) btn.remove();
 
-    // 智能添加 autoplay 参数
+    // 添加 autoplay 参数
     let src = iframe.src;
     if (src.indexOf('autoplay=1') === -1) {
       iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';

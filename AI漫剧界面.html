@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI视频</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>AI视频 · 响应式</title>
   <style>
     * {
       margin: 0;
@@ -26,7 +26,7 @@
 
     .title {
       font-size: 32px;
-      margin-bottom: 20px;          /* 适当减小，为描述文字留空间 */
+      margin-bottom: 20px;
       text-align: center;
       background: linear-gradient(90deg, #8860ff, #40e0ff);
       -webkit-background-clip: text;
@@ -34,21 +34,21 @@
       color: transparent;
     }
 
-    /* ---------- 新增：描述文字居中样式 ---------- */
     .desc {
-      text-align: center;          /* 文字居中 */
+      text-align: center;
       font-size: 16px;
-      margin-bottom: 16px;         /* 行与行之间的间距 */
-      opacity: 0.9;               /* 轻微透明，更柔和 */
+      margin-bottom: 16px;
+      opacity: 0.9;
       line-height: 1.6;
+      color: #b8b0d4;
     }
 
-    /* 两列网格 */
+    /* 默认两列网格（电脑端） */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 30px;
-      margin-top: 20px;            /* 与描述文字的间距 */
+      margin-top: 20px;
     }
 
     .item {
@@ -78,6 +78,7 @@
       z-index: 2;
     }
 
+    /* 播放按钮 — 点击后会彻底移除，不会遮挡视频 */
     .play-btn {
       position: absolute;
       top: 50%;
@@ -92,6 +93,7 @@
       justify-content: center;
       z-index: 3;
       pointer-events: none;
+      transition: opacity 0.2s;
     }
 
     .play-btn::after {
@@ -136,10 +138,104 @@
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s;
+      z-index: 100;
+      font-weight: 500;
     }
 
     .back:hover {
       transform: scale(1.05);
+    }
+
+    /* ----- 手机端适配：强制单列，调整字体/间距，保留原CSS风格 ----- */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 30px 16px;
+      }
+
+      .title {
+        font-size: 26px;
+        margin-bottom: 16px;
+      }
+
+      .desc {
+        font-size: 14px;
+        margin-bottom: 12px;
+        padding: 0 4px;
+      }
+
+      .container .grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px;
+        margin-top: 12px;
+      }
+
+      .item {
+        gap: 10px;
+      }
+
+      .video-wrapper {
+        border-radius: 14px;
+        box-shadow: 0 0 20px rgba(136, 96, 255, 0.2);
+      }
+
+      .play-btn {
+        width: 56px;
+        height: 56px;
+      }
+
+      .play-btn::after {
+        border-left-width: 20px;
+        border-top-width: 12px;
+        border-bottom-width: 12px;
+        margin-left: 4px;
+      }
+
+      .item-title {
+        font-size: 16px;
+      }
+
+      .item-desc {
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 0 2px;
+      }
+
+      .back {
+        padding: 10px 20px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .title {
+        font-size: 24px;
+      }
+
+      .container .grid {
+        gap: 22px;
+      }
+
+      .play-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      .play-btn::after {
+        border-left-width: 16px;
+        border-top-width: 10px;
+        border-bottom-width: 10px;
+        margin-left: 3px;
+      }
+
+      .item-title {
+        font-size: 15px;
+      }
+
+      .item-desc {
+        font-size: 12.5px;
+      }
     }
   </style>
 </head>
@@ -195,8 +291,6 @@
       <div class="item-title">AI真人短剧</div>
       <div class="item-desc">midjourney，photoshop，清影，即梦，根据“夸父追日”神话故事改编，全流程独立完成</div>
     </div>
-
-    <!-- 第4个视频已被注释，若需要可取消注释并替换链接 -->
   </div>
 </div>
 
@@ -208,9 +302,12 @@
     const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
-    if (cover) cover.style.display = 'none';
-    if (btn) btn.style.display = 'none';
+    // 彻底移除封面（如果存在）
+    if (cover) cover.remove();
+    // 彻底移除播放按钮，避免任何遮挡
+    if (btn) btn.remove();
 
+    // 添加 autoplay 参数让视频开始播放
     let src = iframe.src;
     if (src.indexOf('autoplay=1') === -1) {
       if (src.includes('?')) {
