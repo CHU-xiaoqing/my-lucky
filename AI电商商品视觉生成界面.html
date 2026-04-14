@@ -49,8 +49,14 @@
       width: 100%;
       border-radius: 16px;
       box-shadow: 0 0 30px rgba(136, 96, 255, 0.2);
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
+      display: block;
+    }
+    /* 前两个图片完整显示，保持原始比例 */
+    .item:first-child img,
+    .item:nth-child(2) img {
+      height: auto;
+      max-height: none;
+      object-fit: contain;
     }
     .item-title { font-size: 17px; font-weight: bold; color: #ffffff; line-height: 1.4; }
     .item-desc { font-size: 14px; color: #b8b0d4; line-height: 1.5; }
@@ -74,6 +80,15 @@
       color: #b8b0d4;
       font-size: 18px;
     }
+    .img-error {
+      background: #2a2540;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: #b8b0d4;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -82,7 +97,6 @@
   <p class="desc">生图所用软件：midjourney / comfyui / Photoshop / 可灵/即梦</p>
   <p class="desc">因处于个人自学阶段，没有开会员大批量出图，只是努力积累提示词库，在免费或最低的token范围内生图，以下仅为部分图片</p>
 
-  <!-- 注意：默认高亮已改为 ai 按钮 -->
   <div class="tab-bar">
     <button class="tab-btn active" data-tab="ai">🤖 AI图片</button>
     <button class="tab-btn" data-tab="ecommerce">🛍️ 电商商品视觉</button>
@@ -99,10 +113,12 @@
       ai: {
         name: 'AI图片',
         items: [
+          { img: 'https://s41.ax1x.com/2026/04/14/perZLVJ.png', title: 'AI人像', desc: 'midjourney，角色形象'},
+          { img: 'https://s41.ax1x.com/2026/04/14/perZ8gK.png', title: 'AI人像', desc: 'midjourney，角色形象'},
+          { img: 'https://s41.ax1x.com/2026/04/13/peDeg3V.png', title: 'AI人像', desc: 'midjourney，插画' },
+          { img: 'https://s41.ax1x.com/2026/04/13/peDeqgK.png', title: 'AI人像', desc: 'midjourney，插画' },
           { img: 'https://s41.ax1x.com/2026/04/13/peDesNn.png', title: 'AI人像', desc: 'comfyui，动漫风格' },
-          { img: 'https://s41.ax1x.com/2026/04/13/peDefuF.png', title: 'AI人像', desc: 'comfyui，写实风格' },
-          { img: 'https://s41.ax1x.com/2026/04/13/peDeg3V.png', title: 'AI人像', desc: 'midjourney，插画' },        // 已修正多余空格
-          { img: 'https://s41.ax1x.com/2026/04/13/peDeqgK.png', title: 'AI人像', desc: 'midjourney，插画' }
+          { img: 'https://s41.ax1x.com/2026/04/13/peDefuF.png', title: 'AI人像', desc: 'comfyui，写实风格' }
         ]
       },
       ecommerce: {
@@ -118,8 +134,6 @@
 
     const gridEl = document.getElementById('gridContainer');
     const tabBtns = document.querySelectorAll('.tab-btn');
-
-    // ✅ 修改默认分类为 'ai'
     let currentTab = 'ai';
 
     function renderGrid(categoryKey) {
@@ -133,7 +147,7 @@
         category.items.forEach(item => {
           html += `
             <div class="item">
-              <img src="${item.img}" alt="${item.title}" loading="lazy">
+              <img src="${item.img}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'img-error\\'>图片加载失败</div>';">
               <div class="item-title">${item.title}</div>
               <div class="item-desc">${item.desc}</div>
             </div>
@@ -159,7 +173,6 @@
       btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
 
-    // 初始化渲染
     renderGrid(currentTab);
   })();
 </script>
