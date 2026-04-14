@@ -89,31 +89,6 @@
       z-index: 2;
     }
 
-    .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: rgba(136, 96, 255, 0.9);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-
-    .play-btn::after {
-      content: "";
-      border-left: 20px solid #fff;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      margin-left: 4px;
-    }
-
     .video-iframe {
       position: absolute;
       top: 0;
@@ -194,18 +169,6 @@
         box-shadow: 0 0 20px rgba(136, 96, 255, 0.2);
       }
 
-      .play-btn {
-        width: 50px;
-        height: 50px;
-      }
-
-      .play-btn::after {
-        border-left-width: 16px;
-        border-top-width: 10px;
-        border-bottom-width: 10px;
-        margin-left: 3px;
-      }
-
       .label {
         font-size: 16px;
       }
@@ -256,7 +219,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115537271067726&bvid=BV1rUCJBYEio&cid=33952632000&p=1&autoplay=0"
                 scrolling="no"
@@ -270,7 +232,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114971425902666&bvid=BV1JFt5zoE9N&cid=31488411160&p=1&autoplay=0"
                 scrolling="no"
@@ -284,7 +245,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114386723149156&bvid=BV1GfL4zQE88&cid=29568666252&p=1&autoplay=0"
                 scrolling="no"
@@ -298,7 +258,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=116397707434702&bvid=BV1hhQtB4Ep7&cid=37478404080&p=1&autoplay=0"
                 scrolling="no"
@@ -317,7 +276,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=116397489328582&bvid=BV1EoQtBzEk3&cid=37477091912&p=1&autoplay=0"
                 scrolling="no"
@@ -331,7 +289,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115381847005166&bvid=BV1XoWYzdEWX&cid=33113441077&p=1&autoplay=0"
                 scrolling="no"
@@ -345,7 +302,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114160968931990&bvid=BV1kMQ6YnEMf&cid=28864021508&p=1&autoplay=0"
                 scrolling="no"
@@ -359,7 +315,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114715590137594&bvid=BV1b8KNzfEyt&cid=30602825510&p=1&autoplay=0"
                 scrolling="no"
@@ -373,7 +328,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114517484901424&bvid=BV1zQE4zMELV&cid=29991700006&p=1&autoplay=0"
                 scrolling="no"
@@ -387,7 +341,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114658883278025&bvid=BV1Q9M3zsEDj&cid=30423647870&p=1&autoplay=0"
                 scrolling="no"
@@ -406,7 +359,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=114126542085063&bvid=BV1e7RpYwE1Y&cid=28761524076&p=1&autoplay=0"
                 scrolling="no"
@@ -420,7 +372,6 @@
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
         <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面"> -->
-        <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115441288683283&bvid=BV1RdsrzpE3K&cid=33420938398&p=1&autoplay=0"
                 scrolling="no"
@@ -438,12 +389,10 @@
 <script>
   function playVideo(el) {
     const cover = el.querySelector('.video-cover');
-    const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
-    // 彻底移除封面（如果存在）和播放按钮，避免遮挡
+    // 彻底移除封面（如果存在），避免遮挡
     if (cover) cover.remove();
-    if (btn) btn.remove();
 
     // 添加 autoplay 参数
     let src = iframe.src;
