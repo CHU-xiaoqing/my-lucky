@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>多风格商业宣传视频</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>多风格商业宣传视频 · 响应式</title>
   <style>
     * {
       margin: 0;
@@ -43,6 +43,7 @@
       color: #b8b0d4;
     }
 
+    /* 默认两列网格（电脑端） */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -58,7 +59,7 @@
       text-align: center;
     }
 
-    /* 视频容器 + 自定义封面 */
+    /* 视频容器 + 播放按钮 */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -93,6 +94,7 @@
       justify-content: center;
       z-index: 3;
       pointer-events: none;
+      transition: opacity 0.2s;
     }
 
     .play-btn::after {
@@ -139,10 +141,87 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s;
       z-index: 100;
+      font-weight: 500;
     }
 
     .back:hover {
       transform: scale(1.05);
+    }
+
+    /* ----- 手机端适配：一行只显示一个视频 ----- */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      .title {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+
+      .desc {
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+
+      /* 单列网格 */
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .item {
+        gap: 8px;
+      }
+
+      .video-wrapper {
+        border-radius: 14px;
+        box-shadow: 0 0 20px rgba(136, 96, 255, 0.2);
+      }
+
+      .play-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      .play-btn::after {
+        border-left-width: 16px;
+        border-top-width: 10px;
+        border-bottom-width: 10px;
+        margin-left: 3px;
+      }
+
+      .item-title {
+        font-size: 16px;
+      }
+
+      .item-desc {
+        font-size: 13px;
+        max-width: 100%;
+        padding: 0 4px;
+      }
+
+      .back {
+        padding: 8px 18px;
+        bottom: 18px;
+        right: 18px;
+        font-size: 15px;
+      }
+    }
+
+    /* 更小屏微调（≤480px） */
+    @media screen and (max-width: 480px) {
+      .title {
+        font-size: 22px;
+      }
+
+      .grid {
+        gap: 18px;
+      }
+
+      .video-wrapper {
+        border-radius: 12px;
+      }
     }
   </style>
 </head>
@@ -288,6 +367,7 @@
 
     // 智能添加 autoplay 参数
     let src = iframe.src;
+    // 避免重复添加参数
     if (src.indexOf('autoplay=1') === -1) {
       iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
     }
