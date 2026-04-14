@@ -10,19 +10,19 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 .grid{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
-  gap:20px; /* 缩小间距 */
+  gap:20px;
 }
 
 .item{
   display:flex;
   flex-direction:column;
   gap:8px;
-  align-items:center; /* 居中对齐 */
+  align-items:center;
 }
 
 .item img{
-  width:80%; /* 核心修改：缩小图片宽度 */
-  max-width:320px; /* 限制最大尺寸 */
+  width:80%;
+  max-width:320px;
   border-radius:16px;
   box-shadow:0 0 30px rgba(136,96,255,.2);
 }
@@ -35,19 +35,21 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
 }
 
 .back{
-  position:fixed;bottom:25px;right:25px;
-  padding:10px 20px;
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  padding:12px 24px;
   background:linear-gradient(90deg,#8860ff,#40e0ff);
   color:#fff;
   border-radius:50px;
   text-decoration:none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s;
-  z-index: 100;
-  font-weight: 500;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  transition:transform 0.2s;
+  z-index:100;
+  font-weight:500;
 }
-.back:hover {
-  transform: scale(1.05);
+.back:hover{
+  transform:scale(1.05);
 }
 </style>
 
@@ -63,7 +65,7 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
     <img src="https://s41.ax1x.com/2026/04/07/peUSMWV.png">
     <div class="label">元宵节</div>
   </div>
-    <div class="item">
+  <div class="item">
     <img src="https://s41.ax1x.com/2026/04/13/peD1uef.jpg">
     <div class="label">海元素宣传海报</div>
   </div>
@@ -71,15 +73,14 @@ body{font-family:Microsoft YaHei,sans-serif;background:linear-gradient(135deg,#0
     <img src="https://s41.ax1x.com/2026/04/07/peUpBhq.png">
     <div class="label">活动宣传海报</div>
   </div>
-      <div class="item">
+  <div class="item">
     <img src="https://s41.ax1x.com/2026/04/13/peD1Jln.png">
     <div class="label">竞赛路演宣传海报</div>
   </div>
-    <div class="item">
+  <div class="item">
     <img src="https://s41.ax1x.com/2026/04/07/peUSKJ0.jpg">
     <div class="label">产品视觉展示</div>
   </div>
-
 </div>
 
 </div>
