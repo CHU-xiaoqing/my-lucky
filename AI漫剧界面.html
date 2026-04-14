@@ -214,7 +214,7 @@
     <!-- 第2个视频 -->
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
-        <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面2">
+<!--        <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面2">-->
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115270932762841&bvid=BV1q2nGzwENS&cid=32654164413&p=1&autoplay=0"
                 scrolling="no"
@@ -245,34 +245,42 @@
 
 <script>
   function playVideo(el) {
-    // 防止重复点击导致视频重新加载
+    // 防止重复点击
     if (el.dataset.played === 'true') return;
 
     const cover = el.querySelector('.video-cover');
-    const iframe = el.querySelector('.video-iframe');
+    const oldIframe = el.querySelector('.video-iframe');
 
     // 移除封面图
     if (cover) cover.remove();
 
-    // 标记为已播放
+    // 从旧 iframe 获取基础 src（不包含 autoplay/muted 参数）
+    let baseSrc = oldIframe.src;
+    // 清理可能已有的 autoplay 和 muted 参数，避免重复
+    baseSrc = baseSrc.replace(/([?&])autoplay=\d+/g, '$1autoplay=1');
+    baseSrc = baseSrc.replace(/([?&])muted=\d+/g, '$1muted=1');
+
+    // 确保包含 autoplay=1 和 muted=1
+    if (baseSrc.indexOf('autoplay=') === -1) {
+      baseSrc += (baseSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+    }
+    if (baseSrc.indexOf('muted=') === -1) {
+      baseSrc += (baseSrc.includes('?') ? '&' : '?') + 'muted=1';
+    }
+
+    // 创建全新的 iframe，并赋予相同的类名和属性
+    const newIframe = document.createElement('iframe');
+    newIframe.className = 'video-iframe';
+    newIframe.src = baseSrc;
+    newIframe.scrolling = 'no';
+    newIframe.allowFullscreen = true;
+    newIframe.style.cssText = oldIframe.style.cssText; // 继承样式
+
+    // 替换旧 iframe
+    oldIframe.replaceWith(newIframe);
+
+    // 标记已播放
     el.dataset.played = 'true';
-
-    // 处理iframe自动播放 + 静音
-    let src = iframe.src;
-    src = src.replace(/([?&])autoplay=\d+/g, '$1autoplay=1');
-    src = src.replace(/([?&])muted=\d+/g, '$1muted=1');
-
-    if (src.indexOf('autoplay=') === -1) {
-      src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
-    }
-    if (src.indexOf('muted=') === -1) {
-      src += (src.includes('?') ? '&' : '?') + 'muted=1';
-    }
-    if (src.indexOf('high_quality=') === -1) {
-      src += '&high_quality=1';
-    }
-
-    iframe.src = src;
   }
 </script>
 </body>
