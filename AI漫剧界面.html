@@ -261,11 +261,10 @@
       <div class="item-desc">midjourney，即梦，清影，AI叙事短片·个人创作·2026 脚本，画面生成，剪辑，配乐全流程独立完成。</div>
     </div>
 
-    <!-- 第2个视频 -->
+    <!-- 第2个视频 (封面已启用，保证视觉统一) -->
     <div class="item">
       <div class="video-wrapper" onclick="playVideo(this)">
-        <!-- 封面图被注释了，您可取消注释以显示统一封面 -->
-        <!-- <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面2"> -->
+        <img class="video-cover" src="https://s41.ax1x.com/2026/04/03/peYUB0e.jpg" alt="封面2">
         <div class="play-btn"></div>
         <iframe class="video-iframe"
                 src="//player.bilibili.com/player.html?isOutside=true&aid=115270932762841&bvid=BV1q2nGzwENS&cid=32654164413&p=1&autoplay=0"
@@ -298,24 +297,47 @@
 
 <script>
   function playVideo(el) {
+    // 防止重复点击导致视频重新加载 (已经播放过的就不再处理)
+    if (el.dataset.played === 'true') return;
+
     const cover = el.querySelector('.video-cover');
     const btn = el.querySelector('.play-btn');
     const iframe = el.querySelector('.video-iframe');
 
     // 彻底移除封面（如果存在）
     if (cover) cover.remove();
-    // 彻底移除播放按钮，避免任何遮挡
+    // 彻底移除紫色播放按钮，保证消失且不遮挡
     if (btn) btn.remove();
 
-    // 添加 autoplay 参数让视频开始播放
+    // 标记为已播放，避免二次点击重复执行
+    el.dataset.played = 'true';
+
+    // 处理iframe的src —— 确保自动播放 + 静音（符合浏览器自动播放策略，同时点击一次直接播放）
     let src = iframe.src;
-    if (src.indexOf('autoplay=1') === -1) {
-      if (src.includes('?')) {
-        iframe.src = src + '&autoplay=1';
-      } else {
-        iframe.src = src + '?autoplay=1';
-      }
+
+    // 移除已有的autoplay参数 (替换为autoplay=1)
+    src = src.replace(/([?&])autoplay=\d+/g, '$1autoplay=1');
+
+    // 移除已有的muted参数 (替换为muted=1，保证静音自动播放)
+    src = src.replace(/([?&])muted=\d+/g, '$1muted=1');
+
+    // 如果src中没有autoplay参数，则添加
+    if (src.indexOf('autoplay=') === -1) {
+      src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
     }
+
+    // 如果src中没有muted参数，则添加 (静音自动播放，确保一次点击即可播放)
+    if (src.indexOf('muted=') === -1) {
+      src += (src.includes('?') ? '&' : '?') + 'muted=1';
+    }
+
+    // 保证高质量参数存在（如果原来有high_quality则保留，无则添加）
+    if (src.indexOf('high_quality=') === -1) {
+      src += '&high_quality=1';
+    }
+
+    // 更新iframe地址，触发播放
+    iframe.src = src;
   }
 </script>
 </body>
